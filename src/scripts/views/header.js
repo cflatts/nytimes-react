@@ -6,7 +6,6 @@ var Header = React.createClass({
             <header className = 'header'>
                 <h1>New York Times</h1>
                 <input placeholder = 'Search articles' type = 'text' />
-
             </header>
         )
     }

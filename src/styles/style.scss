@@ -3,8 +3,14 @@
 	box-sizing: border-box;
 }
 
-h1 {
-	font-size: 300px;
-	text-align: center;
-	color: fuchsia;
+header {
+    text-align: center;
+
+    h1 {
+        font-size: 36px;
+        text-align: center;
+    }
+    input[type='text'] {
+        padding: 5px 10px;
+    }
 }

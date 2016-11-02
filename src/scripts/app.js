@@ -37,7 +37,7 @@ const app = function() {
                     'api-key': articleCollection._key
                 }
             }).then(function() {
-                ReactDOM.render(<ListView />, document.querySelector('.container'))
+                ReactDOM.render(<ListView listColl = {articleCollection}/>, document.querySelector('.container'))
             })
         },
 

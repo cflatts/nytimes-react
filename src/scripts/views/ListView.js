@@ -36,12 +36,21 @@ var ArticleContainer = React.createClass({
 })
 
 var Article = React.createClass({
+
+    _formatDate: function() {
+        var articleModel = this.props.articleModel
+        var date = new Date(articleModel.get('pub_date'))
+        var formattedDate = date.toLocaleDateString()
+        return formattedDate
+    },
+
     render: function() {
         var articleModel = this.props.articleModel
         return(
             <div className = 'article'>
                 <h3 className = 'title'>{articleModel.get('headline').main}</h3>
                 <p className = 'description'>{articleModel.get('snippet')}</p>
+                <p className = 'publishedOn'>Published on: {this._formatDate()}</p>
             </div>
         )
     }

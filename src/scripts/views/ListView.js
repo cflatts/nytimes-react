@@ -44,10 +44,16 @@ var Article = React.createClass({
         return formattedDate
     },
 
+    _toDetailView: function() {
+        var articleModel = this.props.articleModel
+
+        location.hash = 'detail/' + articleModel.get('_id')
+    },
+
     render: function() {
         var articleModel = this.props.articleModel
         return(
-            <div className = 'article'>
+            <div className = 'article' onClick = {this._toDetailView}>
                 <h3 className = 'title'>{articleModel.get('headline').main}</h3>
                 <p className = 'description'>{articleModel.get('snippet')}</p>
                 <p className = 'publishedOn'>Published on: {this._formatDate()}</p>

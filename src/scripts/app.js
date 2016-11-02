@@ -1,3 +1,4 @@
+import React from 'react'
 import ReactDOM from 'react-dom'
 import Backbone from 'backbone'
 import ListView from './views/ListView'
@@ -36,7 +37,7 @@ const app = function() {
                     'api-key': articleCollection._key
                 }
             }).then(function() {
-
+                ReactDOM.render(<ListView />, document.querySelector('.container'))
             })
         },
 

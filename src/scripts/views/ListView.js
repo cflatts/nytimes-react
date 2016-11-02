@@ -37,8 +37,12 @@ var ArticleContainer = React.createClass({
 
 var Article = React.createClass({
     render: function() {
+        var articleModel = this.props.articleModel
         return(
-            <div></div>
+            <div className = 'article'>
+                <h3 className = 'title'>{articleModel.get('headline').main}</h3>
+                <p className = 'description'>{articleModel.get('snippet')}</p>
+            </div>
         )
     }
 })

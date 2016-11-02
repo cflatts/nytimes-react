@@ -15,7 +15,7 @@ const app = function() {
 
         parse: function(rawResponse) {
             var parsedResponse = rawResponse.response.docs
-            console.log(parsedResponse)
+            // console.log(parsedResponse)
             return parsedResponse
         }
 

@@ -40,7 +40,7 @@ var Article = React.createClass({
     _formatDate: function() {
         var articleModel = this.props.articleModel
         var date = new Date(articleModel.get('pub_date'))
-        var formattedDate = date.toLocaleDateString()
+        var formattedDate = date.toLocaleString()
         return formattedDate
     },
 

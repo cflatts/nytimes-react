@@ -21,3 +21,5 @@ var ArticleContainer = React.createClass({
         )
     }
 })
+
+export default ListView

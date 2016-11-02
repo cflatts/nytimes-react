@@ -1,6 +1,6 @@
-import React from 'react'
 import ReactDOM from 'react-dom'
 import Backbone from 'backbone'
+import ListView from './views/ListView'
 
 const app = function() {
 
@@ -36,7 +36,7 @@ const app = function() {
                     'api-key': articleCollection._key
                 }
             }).then(function() {
-                console.log(articleCollection)
+
             })
         },
 

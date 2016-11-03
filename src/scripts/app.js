@@ -39,13 +39,16 @@ const app = function() {
 
         _handleHome: function() {
             var articleCollection = new ArticleCollection()
-            var articlePromise = articleCollection.fetch({
+
+            var renderIt = function() {
+                ReactDOM.render(<ListView listColl = {articleCollection}/>, document.querySelector('.container'))
+            }
+
+            articleCollection.fetch({
                 data: {
                     'api-key': articleCollection._key
                 }
-            }).then(function() {
-                ReactDOM.render(<ListView listColl = {articleCollection}/>, document.querySelector('.container'))
-            })
+            }).then(renderIt)
         },
 
         _handleSearch: function(searchTerm) {

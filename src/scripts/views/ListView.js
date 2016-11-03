@@ -60,14 +60,14 @@ var Article = React.createClass({
 
     render: function() {
         var articleModel = this.props.articleModel
-
+        console.log(articleModel)
         var snippetStyle = {
             height: this.state.snippetHeight
         }
 
         return(
             <div className = 'article'>
-                <a href = {'#details/' + articleModel.get('_id')}><h3 className = 'title'>{articleModel.get('headline').main}</h3></a>
+                <a href = {'#detail/' + articleModel.get('_id')}><h3 className = 'title'>{articleModel.get('headline').main}</h3></a>
                 <button onClick = {this._toggleSnippet}>{this.state.buttSymbol}</button>
                 <p className = 'description' style = {snippetStyle}>{articleModel.get('snippet')}</p>
                 <p className = 'publishedOn' style = {snippetStyle}>Published on: {this._formatDate()}</p>

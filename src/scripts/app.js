@@ -52,16 +52,14 @@ const app = function() {
         },
 
         _handleSearch: function(searchTerm) {
-            var articleCollection = new ArticleCollection(searchTerm)
-
-            var articlePromise = articleCollection.fetch({
+            var searchColl = new ArticleCollection()
+            searchColl.fetch({
                 data: {
-                    'api-key': articleCollection._key,
+                    'api-key': searchColl._key,
                     'q': searchTerm
                 }
-            }).then(function() {
-                console.log(articleCollection)
             })
+            ReactDOM.render(<ListView searchColl = {searchColl} />, document.querySelector('.container'))
         },
 
         _handleDetail: function(inputID) {
@@ -70,7 +68,7 @@ const app = function() {
             articleModel.fetch({
                 data: {
                     'api-key': articleModel._key,
-                    'fq': `_id:${id}`
+                    'fq': `_id:${inputID}`
                 }
             })
             ReactDOM.render(<DetailView articleModel = {articleModel}/>, document.querySelector('.container'))

@@ -2,8 +2,14 @@ import React from 'react'
 import Header from './header.js'
 
 var ListView = React.createClass({
-    render: function() {
 
+    getInitialState: function() {
+        return {
+            listColl: this.props.listColl
+        }
+    },
+
+    render: function() {
         return(
             <div className = 'listView'>
                 <Header />

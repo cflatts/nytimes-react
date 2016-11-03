@@ -5,15 +5,24 @@ var DetailView = React.createClass({
 
     getInitialState: function() {
         return {
-            model: this.props.model
+            articleModel: this.props.articleModel
         }
     },
 
     componentWillMount: function() {
 
+        var currentMeaningOfThis = this
+
+        var updateState = function() {
+            currentMeaningOfThis.setState({
+                model: currentMeaningOfThis.props.model
+            })
+        }
+        this.props.articleModel.on('sync', updateState)
     },
 
     render: function() {
+        console.log(this.props.articleModel)
         return (
             <div className = 'detailView'>
                 <Header/>
@@ -25,11 +34,9 @@ var DetailView = React.createClass({
 
 var FullArticle = React.createClass({
     render: function() {
-        console.log(this.props.model)
+
         return (
-            <div className = 'fullArticle'>
-                <p>{this.props.model.get('snippet')}</p>
-            </div>
+            <div className = 'fullArticle'>{this.props.model.get('snippet')}</div>
         )
     }
 })

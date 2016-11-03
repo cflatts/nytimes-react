@@ -2,12 +2,19 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Backbone from 'backbone'
 import ListView from './views/ListView'
+import DetailView from './views/DetailView'
 
 const app = function() {
 
     var ArticleModel = Backbone.Model.extend({
         url: 'https://api.nytimes.com/svc/search/v2/articlesearch.json',
-        '_key': 'a30a58a6e722476eb77532b42ca43c9b'
+        '_key': 'a30a58a6e722476eb77532b42ca43c9b',
+
+        parse: function(rawResponse) {
+            var parsedResponse = rawResponse.response.docs[0]
+            // console.log(parsedResponse)
+            return parsedResponse
+        }
     })
 
     var ArticleCollection = Backbone.Collection.extend({
@@ -55,7 +62,15 @@ const app = function() {
         },
 
         _handleDetail: function(inputID) {
-            console.log('handling detail', inputID)
+            var articleModel = new ArticleModel()
+
+            articleModel.fetch({
+                data: {
+                    'api-key': articleModel._key,
+                    'fq': `_id:${id}`
+                }
+            })
+            ReactDOM.render(<DetailView articleModel = {articleModel}/>, document.querySelector('.container'))
         },
 
         _handleDefault: function() {

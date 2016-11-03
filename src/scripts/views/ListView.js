@@ -1,9 +1,9 @@
 import React from 'react'
-import Header from './header'
+import Header from './header.js'
 
 var ListView = React.createClass({
     render: function() {
-        // console.log('list view component', this.props.listColl.models)
+
         return(
             <div className = 'listView'>
                 <Header />
@@ -37,6 +37,28 @@ var ArticleContainer = React.createClass({
 
 var Article = React.createClass({
 
+    getInitialState: function() {
+        return {
+            snippetHeight: 0,
+            buttSymbol: '+'
+        }
+    },
+
+    _toggleSnippet: function() {
+        if(this.state.buttSymbol === '+') {
+            this.setState({
+                snippetHeight:'auto',
+                buttSymbol: '-'
+            })
+        }
+        else {
+            this.setState({
+                snippetHeight: 0,
+                buttSymbol: '+'
+            })
+        }
+    },
+
     _formatDate: function() {
         var articleModel = this.props.articleModel
         var date = new Date(articleModel.get('pub_date'))
@@ -44,19 +66,19 @@ var Article = React.createClass({
         return formattedDate
     },
 
-    _toDetailView: function() {
-        var articleModel = this.props.articleModel
-
-        location.hash = 'detail/' + articleModel.get('_id')
-    },
-
     render: function() {
         var articleModel = this.props.articleModel
+
+        var snippetStyle = {
+            height: this.state.snippetHeight
+        }
+
         return(
-            <div className = 'article' onClick = {this._toDetailView}>
-                <h3 className = 'title'>{articleModel.get('headline').main}</h3>
-                <p className = 'description'>{articleModel.get('snippet')}</p>
-                <p className = 'publishedOn'>Published on: {this._formatDate()}</p>
+            <div className = 'article'>
+                <a href = {'#details/' + articleModel.get('_id')}><h3 className = 'title'>{articleModel.get('headline').main}</h3></a>
+                <button onClick = {this._toggleSnippet}>{this.state.buttSymbol}</button>
+                <p className = 'description' style = {snippetStyle}>{articleModel.get('snippet')}</p>
+                <p className = 'publishedOn' style = {snippetStyle}>Published on: {this._formatDate()}</p>
             </div>
         )
     }

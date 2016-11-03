@@ -1,5 +1,8 @@
-$hover-color:#F6f6f6;
-
+$color1: rgba(220, 238, 209, 1);
+$color2: rgba(170, 192, 170, 1);
+$color3: rgba(115, 99, 114, 1);
+$color4: rgba(161, 130, 118, 1);
+$color5: rgba(122, 145, 141, 1);
 
 * {
 	font-family: Helvetica, Arial, sans-serif;
@@ -8,15 +11,25 @@ $hover-color:#F6f6f6;
 
 //Header styling
 
+a, a:link, a:visited{
+    text-decoration: none;
+}
+
+a h1:hover{
+    color: $color5;
+}
+
 .container {
 
     //Header styling
     header {
         text-align: center;
 
+
         h1 {
             font-size: 36px;
             text-align: center;
+            color: $color4;
         }
         input[type='text'] {
             padding: 5px 10px;
@@ -31,15 +44,17 @@ $hover-color:#F6f6f6;
     .articleContainer {
 
         .article {
-            border-bottom: 1px solid purple;
-
+            border-bottom: 1px solid $color3;
+            background-color: $color2;
             padding: 1% 2%;
             margin: 1% auto;
-            cursor: pointer;
             width: 75%;
-
             &:hover {
-                background-color:$hover-color;
+                background-color:$color1;
+            }
+
+            p {
+                overflow: hidden;
             }
         }
     }

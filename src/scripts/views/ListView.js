@@ -45,18 +45,10 @@ var Article = React.createClass({
     },
 
     _toggleSnippet: function() {
-        if(this.state.buttSymbol === '+') {
-            this.setState({
-                snippetHeight:'auto',
-                buttSymbol: '-'
-            })
-        }
-        else {
-            this.setState({
-                snippetHeight: 0,
-                buttSymbol: '+'
-            })
-        }
+        this.setState({
+            snippetHeight: this.state.buttSymbol === '+' ? 'auto': 0,
+            buttSymbol: this.state.buttSymbol === '+' ? '-' : '+'
+        })
     },
 
     _formatDate: function() {

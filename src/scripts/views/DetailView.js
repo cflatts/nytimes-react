@@ -15,7 +15,7 @@ var DetailView = React.createClass({
 
         var updateState = function() {
             currentMeaningOfThis.setState({
-                model: currentMeaningOfThis.props.model
+                articleModel: currentMeaningOfThis.props.articleModel
             })
         }
         this.props.articleModel.on('sync', updateState)

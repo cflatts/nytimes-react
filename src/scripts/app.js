@@ -59,7 +59,7 @@ const app = function() {
                     'q': searchTerm
                 }
             })
-            ReactDOM.render(<ListView searchColl = {searchColl} />, document.querySelector('.container'))
+            ReactDOM.render(<ListView listColl = {searchColl} />, document.querySelector('.container'))
         },
 
         _handleDetail: function(inputID) {

@@ -5,15 +5,62 @@ var ListView = React.createClass({
 
     getInitialState: function() {
         return {
-            listColl: this.props.listColl
+            listColl: this.props.listColl,
+            isLoaded: false
         }
+    },
+
+    componentWillMount: function() {
+        this._listenToCollection(this.props.listColl)
+    },
+
+    componentWillReceiveProps: function(newProps) {
+        this._listenToCollection(newProps.listColl)
+    },
+
+    _listenToCollection: function(coll) {
+        var currentMeaningOfThis = this
+        var updateState = function() {
+            currentMeaningOfThis.setState({
+                listColl: currentMeaningOfThis.props.listColl,
+                isLoaded: true
+            })
+        }
+        coll.on('sync', updateState)
+    },
+
+    _filterForNews: function() {
+        // var decider = function(singleModel) {
+        //     if(singleModel.get('type_of_material') === 'News') {
+        //         return true
+        //     }
+        //     return false
+        // }
+        // var newsOnly = this.props.listColl.filter(decider)
+        var newsOnly = this.props.listColl.filter(singleModel => singleModel.get('type_of_material') === 'News')
+        this.setState({
+            listColl: newsOnly
+        })
+    },
+
+    _filterForAll: function() {
+        this.setState({
+            listColl: this.props.listColl
+        })
     },
 
     render: function() {
         return(
             <div className = 'listView'>
                 <Header />
-                <ArticleContainer articleColl = {this.props.listColl}/>
+                <div className = 'butts'>
+                    <button onClick = {this._filterForNews}>News Only</button>
+                    <button onClick = {this._filterForAll}>All</button>
+                </div>
+                <ArticleContainer
+                    loaded = {this.state.isLoaded}
+                    articleColl = {this.state.listColl}
+                />
             </div>
         )
     }
@@ -21,21 +68,31 @@ var ListView = React.createClass({
 
 var ArticleContainer = React.createClass({
 
-    _makeArticles: function() {
-        var jsxArray = []
-        var propsArr = this.props.articleColl.models
+    // _makeArticles: function() {
+    //     var jsxArray = []
+    //     var propsArr = this.props.articleColl.models
 
-        propsArr.forEach(function(articleModel) {
-            jsxArray.push(<Article articleModel = {articleModel} key = {articleModel.cid}/>)
-        })
-        return jsxArray
+    //     propsArr.forEach(function(articleModel) {
+    //         jsxArray.push(<Article articleModel = {articleModel} key = {articleModel.cid}/>)
+    //     })
+    //     return jsxArray
+    // },
+
+    _makeArticle: function(singleModel) {
+        //takes in a single el of the arr and returns a transformed component
+        return(<Article articleModel = {singleModel} key = {singleModel.cid} />)
+
     },
 
     render: function() {
-        // console.log('article container component', this.props.articleColl)
+
+        var loadedObj = {
+            display: this.props.loaded ? 'block':'none'
+        }
+
         return(
             <div className = 'articleContainer'>
-                {this._makeArticles()}
+                {this.props.articleColl.map(this._makeArticle)}
             </div>
         )
     }
@@ -66,7 +123,7 @@ var Article = React.createClass({
 
     render: function() {
         var articleModel = this.props.articleModel
-        console.log(articleModel)
+
         var snippetStyle = {
             height: this.state.snippetHeight
         }
